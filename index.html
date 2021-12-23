@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>First DApp</title>
+</head>
+<body>
+
+  <h1>First DApp</h1>
+  <label>FirstContract.getInteger</label>
+  <br />
+  <label id="myLabel"></label>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/web3@1.2.6/dist/web3.min.js"></script>
+<script>
+
+const web3 = new Web3('http://localhost:8545');
+
+const myContractAddress = '0x566850c8b0f936F1d9fa9a9186f511453152C17F';
+const myAbi = [{"constant":true,"inputs":[],"name":"getInteger","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"pure","type":"function"}];
+
+const myContractAddress1 = '0x345681A79eA916b3334d9944983BA2B7C55B9A00';
+const myAbi1 = [[{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[],"name":"getLatestPrice","outputs":[{"internalType":"int256","name":"","type":"int256"}],"stateMutability":"view","type":"function"}]];
+
+const myContract = new web3.eth.Contract(myAbi, myContractAddress);
+const myContract1 = new web3.eth.Contract(myAbi1, myContractAddress1);
+
+const htmlLabel = document.getElementById('myLabel');
+
+myContract1.methods.getLatestPrice().call().then((jsonRpcResult) => {
+  htmlLabel.innerHTML = jsonRpcResult;
+});
+
+</script>
+</html>
